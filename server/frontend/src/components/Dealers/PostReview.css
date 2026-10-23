@@ -1,0 +1,269 @@
+.pr_page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 34px 20px 10px;
+}
+
+.pr_dealer_card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: #123c5e;
+  color: #fff;
+  border-radius: 14px;
+  padding: 26px 28px;
+  margin-bottom: 22px;
+}
+
+.pr_eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #7fd1cf;
+  margin-bottom: 6px;
+}
+
+.pr_dealer_card h1 {
+  font-size: 30px;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.pr_dealer_meta {
+  color: #c7d7e3;
+  margin: 7px 0 0;
+}
+
+.pr_score_box {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.pr_score_box strong {
+  display: block;
+  font-size: 20px;
+}
+
+.pr_score_box span {
+  color: #c7d7e3;
+  font-size: 13px;
+}
+
+.pr_score_box.good strong { color: #7be0a3; }
+.pr_score_box.mid strong { color: #ffd97a; }
+.pr_score_box.low strong { color: #ff9d8a; }
+
+.pr_layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.pr_form_card,
+.pr_preview_card,
+.pr_tips_card {
+  background: #fff;
+  border: 1px solid #dfe6ec;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.pr_field {
+  margin-bottom: 18px;
+}
+
+.pr_field label {
+  display: block;
+  font-weight: 700;
+  color: #22384c;
+  margin-bottom: 7px;
+}
+
+.pr_required {
+  color: #c0392b;
+}
+
+.pr_field textarea,
+.pr_field input,
+.pr_field select {
+  width: 100%;
+  border: 1px solid #c3d0db;
+  border-radius: 8px;
+  padding: 11px 12px;
+  font: inherit;
+  color: #17242f;
+  background: #fff;
+}
+
+.pr_field textarea {
+  resize: vertical;
+  min-height: 150px;
+  line-height: 1.55;
+}
+
+.pr_field textarea:focus,
+.pr_field input:focus,
+.pr_field select:focus {
+  outline: 2px solid #0e7c7b;
+  outline-offset: 1px;
+  border-color: #0e7c7b;
+}
+
+.pr_char_count {
+  text-align: right;
+  color: #8496a5;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.pr_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+
+.pr_actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.pr_submit {
+  background: #123c5e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pr_submit:hover:not(:disabled) {
+  background: #1a4f7a;
+}
+
+.pr_submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.pr_cancel {
+  color: #123c5e;
+  font-weight: 600;
+}
+
+.pr_posting_as {
+  margin-left: auto;
+  color: #647482;
+  font-size: 14px;
+}
+
+.pr_side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pr_side_title {
+  color: #0e7c7b;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.pr_preview_head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pr_avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #123c5e;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+}
+
+.pr_preview_text {
+  color: #33475a;
+  line-height: 1.55;
+  margin: 0 0 12px;
+  white-space: pre-wrap;
+}
+
+.pr_preview_meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #647482;
+  font-size: 13px;
+}
+
+.pr_car_chip {
+  background: #eef3f7;
+  border: 1px solid #d7e0e8;
+  color: #22384c;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+
+.pr_preview_note {
+  border-top: 1px solid #e4ebf0;
+  color: #647482;
+  font-size: 13px;
+  line-height: 1.55;
+  margin: 14px 0 0;
+  padding-top: 12px;
+}
+
+.pr_tips_card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #42566a;
+  line-height: 1.65;
+}
+
+@media (max-width: 860px) {
+  .pr_layout {
+    grid-template-columns: 1fr;
+  }
+
+  .pr_dealer_card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pr_score_box {
+    text-align: left;
+  }
+}
+
+@media (max-width: 560px) {
+  .pr_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pr_posting_as {
+    margin-left: 0;
+  }
+}

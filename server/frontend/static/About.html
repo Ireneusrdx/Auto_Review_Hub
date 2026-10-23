@@ -1,71 +1,210 @@
 <html>
 <head>
-    <link rel="stylesheet" href="/static/style.css">
+  <title>About Us — Auto Review Hub</title>
+  <link rel="stylesheet" href="/static/style.css">
   <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <style>
+    .about-wrap { max-width: 1120px; margin: 0 auto; padding: 44px 20px 20px; }
+    .about-eyebrow { color: #0e7c7b; font-size: 13px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+    .about-hero h1 { color: #102f4b; font-size: clamp(34px, 4.5vw, 52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; margin: 10px 0 16px; }
+    .about-hero p { color: #526372; font-size: 18px; line-height: 1.65; max-width: 720px; }
+    .about-story { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 34px; align-items: center; margin: 40px 0 54px; }
+    .about-story img { width: 100%; height: 340px; object-fit: cover; border-radius: 14px; display: block; }
+    .about-story h2, .about-section h2 { color: #102f4b; font-size: 30px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .about-story p { color: #526372; line-height: 1.7; }
+    .about-section { margin-bottom: 54px; }
+    .about-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 22px; }
+    .about-card { background: #fff; border: 1px solid #dfe6ec; border-radius: 12px; padding: 22px; }
+    .about-card h3 { color: #102f4b; font-size: 18px; margin-bottom: 8px; }
+    .about-card p { color: #5b6b78; line-height: 1.6; margin: 0; }
+    .about-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 22px; }
+    .about-step { background: #123c5e; color: #fff; border-radius: 12px; padding: 24px; }
+    .about-step span { display: inline-flex; width: 32px; height: 32px; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; font-weight: 800; margin-bottom: 14px; }
+    .about-step h3 { font-size: 18px; margin-bottom: 7px; }
+    .about-step p { color: #cfdde8; line-height: 1.6; margin: 0; }
+    .about-chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 16px; }
+    .about-chip { background: #eef3f7; border: 1px solid #d7e0e8; color: #22384c; font-weight: 600; border-radius: 6px; padding: 6px 12px; }
+    .about-dev { display: flex; gap: 22px; align-items: center; background: #fff; border: 1px solid #dfe6ec; border-radius: 12px; padding: 26px; margin-top: 22px; }
+    .about-avatar { width: 76px; height: 76px; border-radius: 50%; background: #123c5e; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; flex-shrink: 0; }
+    .about-dev h3 { color: #102f4b; margin: 0 0 4px; }
+    .about-dev .role { color: #0e7c7b; font-weight: 700; margin-bottom: 8px; }
+    .about-dev p { color: #526372; line-height: 1.65; margin: 0; }
+    .about-cta { background: #e9f3f2; border: 1px solid #cfe0dd; border-radius: 14px; padding: 30px; display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 50px; }
+    .about-cta h2 { color: #102f4b; font-size: 28px; margin: 0 0 8px; }
+    .about-cta p { color: #5b6b78; margin: 0; }
+    .about-btn { background: #123c5e; color: #fff; border-radius: 8px; padding: 12px 22px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+    .about-btn:hover { background: #1a4f7a; color: #fff; }
+    @media (max-width: 900px) { .about-grid { grid-template-columns: repeat(2, 1fr); } .about-story { grid-template-columns: 1fr; } }
+    @media (max-width: 620px) { .about-grid, .about-steps { grid-template-columns: 1fr; } .about-dev { flex-direction: column; align-items: flex-start; } .about-cta { flex-direction: column; align-items: flex-start; } }
+  </style>
+  <script>
+    const logout = async () => {
+      const res = await fetch(window.location.origin + "/djangoapp/logout", { method: "GET" });
+      const json = await res.json();
+      if (json) {
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('firstname');
+        sessionStorage.removeItem('lastname');
+        window.location.href = window.location.origin;
+      }
+    };
+    const checkSession = () => {
+      const curr_user = sessionStorage.getItem("username");
+      if (curr_user && curr_user !== "") {
+        document.getElementById("loginlogout").innerHTML =
+          '<span class="homepage_links">' + curr_user + '</span>' +
+          '<a class="homepage_links" href="/myreviews">My Reviews</a>' +
+          '<a class="homepage_links" href="#" onclick="logout()">Logout</a>';
+      } else {
+        document.getElementById("loginlogout").innerHTML =
+          '<a class="homepage_links" href="/login">Login</a>' +
+          '<a class="homepage_links" href="/register">Register</a>';
+      }
+    };
+  </script>
 </head>
-<div>
+<body onload="checkSession()">
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
     <div class="container-fluid">
-      <h2 style="padding-right: 5%;">Dealerships</h2>
+      <h2 style="padding-right: 5%;">Auto Review Hub</h2>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
+            <a class="nav-link" style="font-size: larger;" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" style="font-size: larger;" href="/about">About Us</a>
+            <a class="nav-link active" style="font-size: larger;" aria-current="page" href="/about">About Us</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" style="font-size: larger;" href="/contact">Contact Us</a>
           </li>
         </ul>
+        <span class="navbar-text">
+          <div class="loginlink" id="loginlogout"></div>
+        </span>
       </div>
     </div>
   </nav>
-  
 
-    <div class="card" style="width: 80%;margin: auto; margin-top:5%;">
-      <div class="banner" name="about-header">
-        <h1>About Us</h1>
-        Welcome to Best Cars dealership, home to the best cars in North America. We deal in sale of domestic and imported cars at reasonable prices.
+  <div class="about-wrap">
+    <div class="about-hero">
+      <div class="about-eyebrow">About Us</div>
+      <h1>Car buying advice that starts with other buyers.</h1>
+      <p>
+        Auto Review Hub is a dealership review platform for the United States.
+        Instead of relying on a dealer's own marketing, buyers read real
+        customer reviews, see the sentiment behind them, and compare
+        dealerships side by side before they visit a showroom.
+      </p>
+    </div>
+
+    <div class="about-story">
+      <div>
+        <h2>Why this platform exists</h2>
+        <p>
+          A car is one of the biggest purchases most people make, yet the
+          experience varies enormously from one dealership to the next: the
+          quoted price, the honesty of the negotiation, the paperwork, the
+          delivery. Those differences rarely show up in advertisements. They
+          show up in reviews.
+        </p>
+        <p>
+          Auto Review Hub collects those reviews in one place and turns them
+          into something a buyer can act on quickly: a reputation score for
+          every dealer, a sentiment breakdown of their reviews, and tools to
+          search, map and compare dealers before committing to a visit.
+        </p>
       </div>
-      <div style="display: flex;flex-direction: row; margin:auto">
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person1</p>
-          <p>Person1 Title</p>
-          <p class="card-text">Some text that explains the person1 in about 2 short sentences</p>
-          <p>person1@example.com</p>
+      <img src="/static/car_dealership.jpg" alt="Cars lined up at a dealership">
+    </div>
+
+    <div class="about-section">
+      <h2>What you can do here</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3>Dealer reputation scores</h3>
+          <p>Every dealership card shows the share of its reviews that are positive, computed from real customer reviews.</p>
         </div>
-      </div>
-
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person2</p>
-          <p>Person2 Title</p>
-          <p class="card-text">Some text that explains the person2 in about 2 short sentences</p>
-          <p>person2@example.com</p>
+        <div class="about-card">
+          <h3>Search, filter and map</h3>
+          <p>Find dealers by name or city, filter by state, and see every dealer plotted on a map of the United States.</p>
         </div>
-      </div>
-
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person3</p>
-          <p>Person3 Title</p>
-          <p class="card-text">Some text that explains the person3 in about 2 short sentences</p>
-          <p>person3@example.com</p>
+        <div class="about-card">
+          <h3>Side-by-side comparison</h3>
+          <p>Compare up to three dealers on score, review volume, sentiment split and the cars they sell.</p>
+        </div>
+        <div class="about-card">
+          <h3>Reviews that help back</h3>
+          <p>Post a review after your purchase, mark other reviews helpful, and find all your reviews in one place.</p>
         </div>
       </div>
     </div>
-    </div>
-    </div>
-    
-</div>
 
+    <div class="about-section">
+      <h2>How the sentiment score works</h2>
+      <div class="about-steps">
+        <div class="about-step">
+          <span>1</span>
+          <h3>A customer posts a review</h3>
+          <p>The review is saved with the car bought, the purchase date and the dealership it belongs to.</p>
+        </div>
+        <div class="about-step">
+          <span>2</span>
+          <h3>The analyzer reads the words</h3>
+          <p>A dedicated sentiment service scores the review text as positive, neutral or negative.</p>
+        </div>
+        <div class="about-step">
+          <span>3</span>
+          <h3>Scores roll up per dealer</h3>
+          <p>Individual sentiments combine into each dealer's reputation score and sentiment breakdown.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-section">
+      <h2>Built with</h2>
+      <p style="color:#526372; line-height:1.7; max-width:720px;">
+        Auto Review Hub is a full-stack application: a Django service for
+        users and the web app, a React front end, an Express and MongoDB
+        service for dealers, cars and reviews, and a Flask sentiment
+        analyzer, all containerized with Docker.
+      </p>
+      <div class="about-chips">
+        <span class="about-chip">Django</span>
+        <span class="about-chip">React</span>
+        <span class="about-chip">Express</span>
+        <span class="about-chip">MongoDB</span>
+        <span class="about-chip">Flask</span>
+        <span class="about-chip">VADER sentiment analysis</span>
+        <span class="about-chip">Docker</span>
+        <span class="about-chip">Render</span>
+      </div>
+
+      <div class="about-dev">
+        <div class="about-avatar">IR</div>
+        <div>
+          <h3>Ireneus Rodrigues</h3>
+          <div class="role">Full-Stack Developer</div>
+          <p>
+            Designed and built Auto Review Hub end to end, from the data
+            model and services to the interface you are looking at, as the
+            capstone project for the IBM Full Stack Application Development
+            program.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-cta">
+      <div>
+        <h2>See the dealers for yourself</h2>
+        <p>Create a free account to open the full directory, scores and comparisons.</p>
+      </div>
+      <a class="about-btn" href="/register">Create an account</a>
+    </div>
+  </div>
+</body>
 </html>
