@@ -24,16 +24,17 @@ const DealersMap = ({ dealers }) => {
       style={{ height: '520px', width: '100%', borderRadius: '10px' }}
       scrollWheelZoom={false}
     >
-      {/* Tiles come from CARTO's free basemap service. The raw
-          tile.openstreetmap.org endpoint 403-blocks this app under
-          OSM's tile usage policy, which left the map covered in
-          "Access blocked" tiles; CARTO serves the same OpenStreetMap
-          data under its free basemap terms with attribution. */}
+      {/* Tile source history: tile.openstreetmap.org 403-blocks this
+          app under OSM's tile usage policy ("Access blocked" tiles),
+          and CARTO's basemap CDN now stamps "API KEY REQUIRED" on its
+          tiles for keyless browser use. Esri's World Street Map tile
+          service is the remaining genuinely key-free option: it serves
+          real street tiles to browsers with attribution only. Note the
+          ArcGIS tile order is {z}/{y}/{x}. */}
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
-        subdomains="abcd"
-        maxZoom={20}
+        attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+        maxZoom={18}
       />
       {points.map((dealer) => (
         <Marker
