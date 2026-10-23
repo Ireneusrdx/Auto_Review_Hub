@@ -118,9 +118,12 @@ app.get('/fetchDealer/:id', async (req, res) => {
 // Express route to insert review
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
   try {
-    const data = typeof req.body === 'object' && !Buffer.isBuffer(req.body)
-      ? req.body
-      : JSON.parse(req.body.toString());
+    let data = req.body;
+    if (Buffer.isBuffer(data)) {
+      data = JSON.parse(data.toString());
+    } else if (typeof data === 'string') {
+      data = JSON.parse(data);
+    }
     const documents = await Reviews.find().sort({ id: -1 });
     const new_id = documents.length > 0 ? documents[0].id + 1 : 1;
 
