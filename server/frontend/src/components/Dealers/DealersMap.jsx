@@ -24,9 +24,16 @@ const DealersMap = ({ dealers }) => {
       style={{ height: '520px', width: '100%', borderRadius: '10px' }}
       scrollWheelZoom={false}
     >
+      {/* Tiles come from CARTO's free basemap service. The raw
+          tile.openstreetmap.org endpoint 403-blocks this app under
+          OSM's tile usage policy, which left the map covered in
+          "Access blocked" tiles; CARTO serves the same OpenStreetMap
+          data under its free basemap terms with attribution. */}
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
+        subdomains="abcd"
+        maxZoom={20}
       />
       {points.map((dealer) => (
         <Marker
