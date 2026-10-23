@@ -76,7 +76,9 @@ npm install
 npm run build
 ```
 
-Then open http://localhost:8000 — the dealers list is the home page.
+Then open http://localhost:8000 — you land on the public landing page.
+Log in or register there; the dealership directory and the rest of the
+app open after login.
 
 Without Docker, run Express directly against any MongoDB:
 `MONGO_URL=mongodb://127.0.0.1:27017/ node server/database/app.js`

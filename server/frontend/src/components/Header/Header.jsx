@@ -57,11 +57,13 @@ if ( curr_user !== null &&  curr_user !== "") {
               <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link active" style={{fontSize: "larger"}} aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" style={{fontSize: "larger"}} aria-current="page" href={curr_user ? "/dealers" : "/"}>Home</a>
                   </li>
+                  {curr_user ? (
                   <li class="nav-item">
                     <a class="nav-link" style={{fontSize: "larger"}} href="/cars">Cars</a>
                   </li>
+                  ) : <></>}
                   <li class="nav-item">
                     <a class="nav-link" style={{fontSize: "larger"}} href="/about">About Us</a>
                   </li>

@@ -46,11 +46,11 @@ const Register = () => {
         sessionStorage.setItem('firstname', firstName);
         sessionStorage.setItem('lastname', lastName);
         flashToast(`Account created — welcome, ${json.userName}.`);
-        window.location.href = window.location.origin;
+        window.location.href = window.location.origin + "/dealers";
     }
     else if (json.error === "Already Registered") {
       alert("The user with same username is already registered");
-      window.location.href = window.location.origin;
+      window.location.href = window.location.origin + "/login";
     }
 };
 

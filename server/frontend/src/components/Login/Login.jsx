@@ -8,7 +8,6 @@ const Login = ({ onClose }) => {
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [open,setOpen] = useState(true)
 
   let login_url = window.location.origin+"/djangoapp/login";
 
@@ -30,17 +29,13 @@ const Login = ({ onClose }) => {
     if (json.status != null && json.status === "Authenticated") {
         sessionStorage.setItem('username', json.userName);
         flashToast(`Welcome back, ${json.userName}.`);
-        setOpen(false);
+        window.location.href = "/dealers";
     }
     else {
       alert("The user could not be authenticated.")
     }
 };
 
-  if (!open) {
-    window.location.href = "/";
-  };
-  
 
   return (
     <div>
@@ -63,7 +58,7 @@ const Login = ({ onClose }) => {
               </div>
               <div>
               <input className="action_button" type="submit" value="Login"/>
-              <input className="action_button" type="button" value="Cancel" onClick={()=>setOpen(false)}/>
+              <input className="action_button" type="button" value="Cancel" onClick={() => { window.location.href = "/"; }}/>
               </div>
               <a className="loginlink" href="/register">Register Now</a>
           </form>
