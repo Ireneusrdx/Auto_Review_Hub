@@ -1,0 +1,255 @@
+.auth_page {
+  display: grid;
+  grid-template-columns: minmax(420px, 1fr) minmax(480px, 1.1fr);
+  min-height: 100vh;
+  background: #f7f9fb;
+}
+
+/* ---------- visual panel ---------- */
+.auth_visual {
+  position: relative;
+  color: #fff;
+  padding: 34px 40px;
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(150deg, rgba(10, 34, 56, 0.88), rgba(18, 60, 94, 0.72) 55%, rgba(14, 124, 123, 0.62)),
+    url('/static/car_dealership.jpg') center / cover no-repeat;
+}
+
+.auth_brand {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.auth_brand:hover { color: #fff; }
+
+.auth_visual_body {
+  margin: auto 0;
+  max-width: 460px;
+}
+
+.auth_visual_body h2 {
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin: 0 0 14px;
+}
+
+.auth_visual_body p {
+  color: #d7e4ee;
+  font-size: 17px;
+  line-height: 1.6;
+  margin: 0 0 26px;
+}
+
+.auth_visual_body ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.auth_visual_body li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 15.5px;
+  color: #eef4f8;
+}
+
+.auth_check {
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  fill: none;
+  stroke: #7fd1cf;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.auth_visual_foot {
+  color: #b9cddc;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+/* ---------- form panel ---------- */
+.auth_form_side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 28px;
+}
+
+.auth_form_card {
+  width: 100%;
+  max-width: 448px;
+}
+
+.auth_form_card h1 {
+  color: #102f4b;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+
+.auth_sub {
+  color: #5b6b78;
+  line-height: 1.55;
+  margin: 0 0 26px;
+}
+
+.auth_error {
+  background: #fbe7e2;
+  border: 1px solid #f0c4ba;
+  color: #8f2d1e;
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 14.5px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+
+.auth_error a {
+  color: #8f2d1e;
+  font-weight: 700;
+}
+
+.auth_field {
+  margin-bottom: 16px;
+}
+
+.auth_field label {
+  display: block;
+  font-weight: 700;
+  color: #22384c;
+  font-size: 14.5px;
+  margin-bottom: 7px;
+}
+
+.auth_field input {
+  width: 100%;
+  border: 1px solid #c3d0db;
+  border-radius: 8px;
+  padding: 12px;
+  font: inherit;
+  color: #17242f;
+  background: #fff;
+}
+
+.auth_field input:focus {
+  outline: 2px solid #0e7c7b;
+  outline-offset: 1px;
+  border-color: #0e7c7b;
+}
+
+.auth_field_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.auth_password_wrap {
+  position: relative;
+}
+
+.auth_password_wrap input {
+  padding-right: 46px;
+}
+
+.auth_eye {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: #647482;
+  display: inline-flex;
+}
+
+.auth_eye svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.auth_submit {
+  width: 100%;
+  background: #123c5e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 13px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.auth_submit:hover:not(:disabled) { background: #1a4f7a; }
+.auth_submit:disabled { opacity: 0.65; cursor: wait; }
+
+.auth_alt {
+  text-align: center;
+  color: #5b6b78;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.auth_alt a {
+  color: #123c5e;
+  font-weight: 700;
+}
+
+.auth_back {
+  display: block;
+  text-align: center;
+  margin-top: 12px;
+  color: #647482;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .auth_page {
+    grid-template-columns: 1fr;
+  }
+
+  .auth_visual {
+    padding: 24px;
+    min-height: 300px;
+  }
+
+  .auth_visual_body {
+    margin: 28px 0;
+  }
+
+  .auth_visual_body ul,
+  .auth_visual_foot {
+    display: none;
+  }
+
+  .auth_form_side {
+    padding: 30px 20px 44px;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .auth_field_row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -8,7 +8,7 @@ import Cars from "./components/Pages/Cars"
 import Landing from "./components/Pages/Landing"
 import MyReviews from "./components/Pages/MyReviews"
 import { ToastProvider, flashToast } from "./components/Toast/Toast"
-import { Navigate, Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route, useLocation } from "react-router-dom";
 
 const isLoggedIn = () => {
   const username = sessionStorage.getItem("username");
@@ -62,6 +62,10 @@ const Footer = () => {
 };
 
 function App() {
+  const location = useLocation();
+  // The auth pages are full-screen split designs; the site footer
+  // underneath them just adds an awkward scroll.
+  const hideFooter = ['/login', '/register'].includes(location.pathname);
   return (
     <ToastProvider>
       <Routes>
@@ -88,7 +92,7 @@ function App() {
           <RequireAuth><MyReviews /></RequireAuth>
         } />
       </Routes>
-      <Footer />
+      {!hideFooter && <Footer />}
     </ToastProvider>
   );
 }
