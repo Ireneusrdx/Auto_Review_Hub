@@ -115,6 +115,23 @@ app.get('/fetchDealer/:id', async (req, res) => {
   }
 });
 
+// Express route to mark a review as helpful (increments its counter)
+app.post('/mark_helpful/:id', async (req, res) => {
+  try {
+    const updated = await Reviews.findOneAndUpdate(
+      { id: parseInt(req.params.id) },
+      { $inc: { helpful: 1 } },
+      { new: true }
+    );
+    if (!updated) {
+      return res.status(404).json({ error: 'Review not found' });
+    }
+    res.json({ id: updated.id, helpful: updated.helpful || 0 });
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating review' });
+  }
+});
+
 // Express route to insert review
 app.post('/insert_review', express.raw({ type: '*/*' }), async (req, res) => {
   try {

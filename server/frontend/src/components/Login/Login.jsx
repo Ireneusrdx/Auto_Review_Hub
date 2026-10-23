@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import "./Login.css";
 import Header from '../Header/Header';
+import { flashToast } from '../Toast/Toast';
 
 const Login = ({ onClose }) => {
 
@@ -28,7 +29,8 @@ const Login = ({ onClose }) => {
     const json = await res.json();
     if (json.status != null && json.status === "Authenticated") {
         sessionStorage.setItem('username', json.userName);
-        setOpen(false);        
+        flashToast(`Welcome back, ${json.userName}.`);
+        setOpen(false);
     }
     else {
       alert("The user could not be authenticated.")

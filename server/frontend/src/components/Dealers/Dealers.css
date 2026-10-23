@@ -86,3 +86,310 @@ table{
   transform: scale(1.1);
   border: solid lightgray;
 }
+/* ---- Auto Review Hub upgrade styles (cards, stats, compare, detail) --- */
+
+.dealers_page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px 96px;
+}
+
+.dealers_controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.dealers_search {
+  flex: 1 1 260px;
+  padding: 10px 12px;
+  border: 1px solid #c7d0d9;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.dealers_select {
+  padding: 10px 12px;
+  border: 1px solid #c7d0d9;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.view_toggle {
+  display: flex;
+  border: 1px solid #c7d0d9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.view_toggle button {
+  border: 0;
+  background: #fff;
+  padding: 10px 18px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.view_toggle button.toggle_active {
+  background: #123c5e;
+  color: #fff;
+}
+
+.dealer_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.dealer_card {
+  background: #fff;
+  border: 1px solid #e1e7ee;
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.dealer_card:hover {
+  box-shadow: 0 6px 20px rgba(18, 60, 94, 0.12);
+  border-color: #b9c9d8;
+}
+
+.dealer_card.card_selected {
+  border-color: #123c5e;
+  box-shadow: 0 0 0 2px #123c5e inset;
+}
+
+.dealer_card_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.dealer_name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #123c5e;
+  text-decoration: none;
+}
+
+.dealer_name:hover {
+  text-decoration: underline;
+}
+
+.score_badge {
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.score_good { background: #e2f4ea; color: #146c43; }
+.score_mid { background: #fdf0d7; color: #8a5a00; }
+.score_low { background: #fbe7e4; color: #a93226; }
+.score_none { background: #edf1f5; color: #5b6b7a; }
+
+.dealer_meta { color: #51606e; font-size: 14px; }
+.dealer_reviews_line { color: #33424f; font-size: 14px; }
+
+.dealer_card_actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 8px;
+  flex-wrap: wrap;
+}
+
+.btn_primary {
+  background: #123c5e;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn_primary:hover { background: #1a4f7a; color: #fff; }
+.btn_primary:disabled { background: #9db4c6; cursor: default; }
+
+.btn_ghost {
+  background: #fff;
+  color: #123c5e;
+  border: 1px solid #123c5e;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn_ghost_light {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.compare_check {
+  margin-left: auto;
+  font-size: 14px;
+  color: #33424f;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.skeleton_card { min-height: 150px; }
+
+.skeleton_line {
+  height: 14px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #edf1f5 25%, #dde5ec 50%, #edf1f5 75%);
+  background-size: 200% 100%;
+  animation: skeleton_pulse 1.4s infinite;
+  margin-bottom: 12px;
+}
+
+.skeleton_line.wide { width: 85%; }
+.skeleton_line.narrow { width: 45%; }
+
+@keyframes skeleton_pulse {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+.dealers_hint { color: #51606e; margin-bottom: 14px; }
+.dealers_error {
+  border: 1px solid #e5b4ae;
+  background: #fdf1ef;
+  border-radius: 10px;
+  padding: 20px;
+  color: #7b241c;
+}
+
+.compare_bar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 18px;
+  z-index: 1200;
+  background: #123c5e;
+  color: #fff;
+  border-radius: 10px;
+  padding: 12px 18px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(10, 30, 50, 0.35);
+  max-width: 92vw;
+  flex-wrap: wrap;
+}
+
+.compare_bar_actions { display: flex; gap: 10px; }
+
+.compare_overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 25, 40, 0.55);
+  z-index: 1500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.compare_panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px;
+  max-width: 820px;
+  width: 100%;
+  max-height: 86vh;
+  overflow: auto;
+}
+
+.compare_panel_head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.compare_table { width: 100%; border-collapse: collapse; }
+.compare_table th, .compare_table td {
+  border: 1px solid #e1e7ee;
+  padding: 9px 12px;
+  text-align: left;
+  font-size: 14px;
+}
+.compare_table td:first-child { font-weight: 600; color: #123c5e; width: 180px; }
+
+/* Dealer detail 2.0 */
+.dealer_detail_page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+.sentiment_bar {
+  display: flex;
+  height: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 12px 0 6px;
+  background: #edf1f5;
+}
+.sentiment_bar .seg_pos { background: #1e9e62; }
+.sentiment_bar .seg_neu { background: #d9a514; }
+.sentiment_bar .seg_neg { background: #c0392b; }
+.sentiment_legend { font-size: 13px; color: #51606e; display: flex; gap: 16px; flex-wrap: wrap; }
+.review_card2 {
+  background: #fff;
+  border: 1px solid #e1e7ee;
+  border-radius: 10px;
+  padding: 16px;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.review_card2 .emotion_icon { position: static; }
+.review_card_head { display: flex; align-items: center; gap: 10px; }
+.review_car_chip {
+  background: #edf1f5; border-radius: 6px; padding: 2px 8px;
+  font-size: 12px; color: #33424f; font-weight: 600;
+}
+.helpful_btn {
+  align-self: flex-start;
+  background: #fff; border: 1px solid #c7d0d9; border-radius: 8px;
+  padding: 6px 12px; font-size: 13px; cursor: pointer; color: #123c5e;
+}
+.helpful_btn:disabled { color: #7d8fa0; cursor: default; background: #f2f5f8; }
+
+/* Simple content pages (Cars, My Reviews) */
+.simple_page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 60px; }
+.make_group { margin-bottom: 28px; }
+.make_group h3 { color: #123c5e; margin-bottom: 10px; }
+.model_row {
+  display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  background: #fff; border: 1px solid #e1e7ee; border-radius: 8px;
+  padding: 12px 16px; margin-bottom: 8px; font-size: 15px;
+}
+
+@media (max-width: 640px) {
+  .dealer_grid { grid-template-columns: 1fr; }
+  .compare_bar { left: 8px; right: 8px; transform: none; }
+  .review_card2 { width: 100%; }
+}

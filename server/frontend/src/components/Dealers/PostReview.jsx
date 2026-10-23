@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import "./Dealers.css";
 import "../assets/style.css";
 import Header from '../Header/Header';
+import { flashToast } from '../Toast/Toast';
 
 
 const PostReview = () => {
@@ -57,7 +58,10 @@ const PostReview = () => {
 
   const json = await res.json();
   if (json.status === 200) {
+      flashToast('Your review was posted.');
       window.location.href = window.location.origin+"/dealer/"+id;
+  } else {
+      flashToast('Your review could not be posted. Please try again.', 'error');
   }
 
   }

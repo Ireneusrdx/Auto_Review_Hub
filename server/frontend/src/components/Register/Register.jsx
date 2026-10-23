@@ -4,6 +4,7 @@ import user_icon from "../assets/person.png"
 import email_icon from "../assets/email.png"
 import password_icon from "../assets/password.png"
 import close_icon from "../assets/close.png"
+import { flashToast } from '../Toast/Toast';
 
 const Register = () => {
 
@@ -44,6 +45,7 @@ const Register = () => {
         // were never stored, so reviews always fell back to the username.
         sessionStorage.setItem('firstname', firstName);
         sessionStorage.setItem('lastname', lastName);
+        flashToast(`Account created — welcome, ${json.userName}.`);
         window.location.href = window.location.origin;
     }
     else if (json.error === "Already Registered") {

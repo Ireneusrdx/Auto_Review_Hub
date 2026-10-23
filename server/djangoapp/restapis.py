@@ -59,3 +59,40 @@ def post_review(data_dict):
     except Exception as e:
         print("Network exception occurred", e)
         return None
+
+
+def get_all_reviews():
+    """Every review in the review service (used by the stats views)."""
+    return get_request("/fetchReviews") or []
+
+
+def analyze_many(texts):
+    """Sentiment for a list of review texts, analyzed in parallel.
+
+    The analyzer is a fast local-network service, but one HTTP call per
+    review in sequence makes aggregate pages slow; a small thread pool
+    keeps stats endpoints responsive. Order is preserved.
+    """
+    from concurrent.futures import ThreadPoolExecutor
+
+    def one(text):
+        response = analyze_review_sentiments(text)
+        if response and 'sentiment' in response:
+            return response['sentiment']
+        return "neutral"
+
+    if not texts:
+        return []
+    with ThreadPoolExecutor(max_workers=10) as pool:
+        return list(pool.map(one, texts))
+
+
+def post_request(endpoint, payload=None):
+    """POST to the review service (e.g. the helpful-vote endpoint)."""
+    request_url = backend_url+endpoint
+    try:
+        response = requests.post(request_url, json=payload or {}, timeout=10)
+        return response.json()
+    except Exception as e:
+        print("Network exception occurred", e)
+        return None

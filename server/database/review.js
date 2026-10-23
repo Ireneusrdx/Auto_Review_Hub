@@ -39,6 +39,10 @@ const reviews = new Schema({
     type: Number,
     required: true
   },
+  helpful: {
+    type: Number,
+    default: 0
+  },
 });
 
 module.exports = mongoose.model('reviews', reviews);

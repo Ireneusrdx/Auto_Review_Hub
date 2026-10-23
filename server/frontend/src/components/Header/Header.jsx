@@ -1,6 +1,7 @@
 import React from 'react';
 import "../assets/style.css";
 import "../assets/bootstrap.min.css";
+import { flashToast } from '../Toast/Toast';
 
 const Header = () => {
     const logout = async (e) => {
@@ -12,11 +13,11 @@ const Header = () => {
   
     const json = await res.json();
     if (json) {
-      let username = sessionStorage.getItem('username');
       sessionStorage.removeItem('username');
+      sessionStorage.removeItem('firstname');
+      sessionStorage.removeItem('lastname');
+      flashToast('You have been logged out.');
       window.location.href = window.location.origin;
-      window.location.reload();
-      alert("Logging out "+username+"...")
     }
     else {
       alert("The user could not be logged out.")
@@ -33,7 +34,8 @@ let curr_user = sessionStorage.getItem('username')
 if ( curr_user !== null &&  curr_user !== "") {
     home_page_items = <div className="input_panel">
       <text className='username'>{sessionStorage.getItem("username")}</text>
-    <a className="nav_item" href="/djangoapp/logout" onClick={logout}>Logout</a>
+    <a className="nav_item" href="/myreviews" style={{marginLeft: "10px"}}>My Reviews</a>
+    <a className="nav_item" href="/djangoapp/logout" onClick={logout} style={{marginLeft: "10px"}}>Logout</a>
   </div>
 } else {
     // Logged out: the nav bar must offer login and signup (Module 1).
@@ -48,7 +50,7 @@ if ( curr_user !== null &&  curr_user !== "") {
         <div>
           <nav class="navbar navbar-expand-lg navbar-light" style={{backgroundColor:"darkturquoise",height:"1in"}}>
             <div class="container-fluid">
-              <h2 style={{paddingRight: "5%"}}>Dealerships</h2>
+              <h2 style={{paddingRight: "5%"}}>Auto Review Hub</h2>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -56,6 +58,9 @@ if ( curr_user !== null &&  curr_user !== "") {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
                     <a class="nav-link active" style={{fontSize: "larger"}} aria-current="page" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" style={{fontSize: "larger"}} href="/cars">Cars</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" style={{fontSize: "larger"}} href="/about">About Us</a>

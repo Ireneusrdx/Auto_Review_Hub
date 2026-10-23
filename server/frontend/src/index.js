@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 
 import { BrowserRouter } from "react-router-dom";
+import 'leaflet/dist/leaflet.css';
 
 // BrowserRouter, not HashRouter: Django serves the built app at /login,
 // /register, /dealers, /dealer/<id> and /postreview/<id> (see

@@ -52,6 +52,15 @@ connect to through the `MONGO_URL` environment variable.
   safe: they live in Atlas, and the Express service re-seeds its seed data
   on start. Car makes/models re-seed on demand.
 
+### Keeping the free services awake for a demo
+
+Free Render services sleep after about 15 minutes idle, and the first
+request afterwards takes 30–60 seconds. For a scheduled demo or viva,
+point a free uptime pinger (for example UptimeRobot's free plan) at the
+three service URLs with a 10-minute interval starting an hour before:
+it keeps them warm without any code change. Stop the monitors afterwards
+if you want the services to sleep normally.
+
 ## Option 2: Docker (self-hosted)
 
 ```bash

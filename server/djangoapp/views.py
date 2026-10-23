@@ -13,9 +13,12 @@ from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 import logging
 import json
+import time
+from collections import Counter
 from django.views.decorators.csrf import csrf_exempt
 from .populate import initiate
-from .restapis import get_request, analyze_review_sentiments, post_review
+from .restapis import (get_request, analyze_review_sentiments, post_review,
+                       get_all_reviews, analyze_many, post_request)
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -139,6 +142,111 @@ def get_dealer_details(request, dealer_id):
         return JsonResponse({"status": 400, "message": "Bad Request"})
 
 # Create a `add_review` view to submit a review
+
+
+_stats_cache = {"at": 0.0, "data": None}
+_STATS_TTL_SECONDS = 300
+
+
+def _compute_stats():
+    """Aggregate every review into per-dealer and per-car-model stats.
+
+    Sentiment is not stored in MongoDB (it is computed by the analyzer
+    service), so a full pass costs one analyzer call per review; results
+    are cached for a few minutes because the dealers list renders them
+    for all 50 dealers at once.
+    """
+    reviews = get_all_reviews()
+    sentiments = analyze_many([r.get('review', '') for r in reviews])
+
+    dealers = {}
+    models = {}
+    for review, sentiment in zip(reviews, sentiments):
+        entry = dealers.setdefault(review.get('dealership'), {
+            "reviews": 0, "positive": 0, "neutral": 0, "negative": 0,
+            "makes": Counter(),
+        })
+        entry["reviews"] += 1
+        if sentiment in ("positive", "neutral", "negative"):
+            entry[sentiment] += 1
+        if review.get('car_make'):
+            entry["makes"][review['car_make']] += 1
+
+        key = (review.get('car_make', ''), review.get('car_model', ''))
+        model = models.setdefault(key, {
+            "make": key[0], "model": key[1], "reviews": 0, "positive": 0,
+        })
+        model["reviews"] += 1
+        if sentiment == "positive":
+            model["positive"] += 1
+
+    dealer_out = {}
+    for dealer_id, entry in dealers.items():
+        total = entry["reviews"]
+        dealer_out[str(dealer_id)] = {
+            "reviews": total,
+            "positive": entry["positive"],
+            "neutral": entry["neutral"],
+            "negative": entry["negative"],
+            # Reputation score: share of positive reviews, 0-100.
+            "score": round(100 * entry["positive"] / total) if total else None,
+            "top_makes": [name for name, _ in entry["makes"].most_common(3)],
+        }
+
+    model_out = []
+    for model in models.values():
+        total = model["reviews"]
+        model["positive_pct"] = (
+            round(100 * model["positive"] / total) if total else 0)
+        model_out.append(model)
+    model_out.sort(key=lambda m: (-m["reviews"], m["make"], m["model"]))
+
+    return {"dealers": dealer_out, "models": model_out,
+            "total_reviews": len(reviews)}
+
+
+def dealer_stats(request):
+    """Per-dealer review counts, sentiment split, reputation score."""
+    now = time.time()
+    if (_stats_cache["data"] is None
+            or now - _stats_cache["at"] > _STATS_TTL_SECONDS):
+        _stats_cache["data"] = _compute_stats()
+        _stats_cache["at"] = now
+    return JsonResponse({"status": 200, **_stats_cache["data"]})
+
+
+def my_reviews(request):
+    """Reviews posted by the logged-in user (matched by reviewer name).
+
+    Reviews store the poster's first + last name (the post-review flow
+    builds it from the account), so a user's reviews are the ones whose
+    name matches their account name.
+    """
+    if request.user.is_anonymous:
+        return JsonResponse({"status": 401, "message": "Login required"})
+    full_name = "{} {}".format(request.user.first_name,
+                               request.user.last_name).strip()
+    # The post-review flow stores the first + last name, but falls back
+    # to the bare username when those are missing from the session, so a
+    # user's reviews can carry either form.
+    names = {full_name, request.user.username}
+    mine = [r for r in get_all_reviews() if r.get('name') in names]
+    sentiments = analyze_many([r.get('review', '') for r in mine])
+    for review, sentiment in zip(mine, sentiments):
+        review['sentiment'] = sentiment
+    return JsonResponse({"status": 200, "reviews": mine})
+
+
+@csrf_exempt
+def mark_helpful(request, review_id):
+    """Proxy a 'helpful' vote to the review service."""
+    if request.method != "POST":
+        return JsonResponse({"status": 405, "message": "POST required"})
+    result = post_request(f"/mark_helpful/{review_id}")
+    if result is None:
+        return JsonResponse({"status": 502,
+                             "message": "Review service unavailable"})
+    return JsonResponse({"status": 200, **result})
 
 
 @csrf_exempt
