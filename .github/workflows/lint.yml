@@ -1,0 +1,36 @@
+name: Lint Code
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint_python:
+    name: Lint Python (flake8)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install flake8
+        run: pip install flake8
+      - name: Lint Python files
+        run: find . -name "*.py" -exec flake8 --max-line-length=200 {} +
+
+  lint_js:
+    name: Lint JavaScript (jshint)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install jshint
+        run: npm install jshint --global
+      - name: Lint Express service files
+        run: find ./server/database -name "*.js" -exec jshint {} +
