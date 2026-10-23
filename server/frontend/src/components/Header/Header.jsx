@@ -35,6 +35,14 @@ if ( curr_user !== null &&  curr_user !== "") {
       <text className='username'>{sessionStorage.getItem("username")}</text>
     <a className="nav_item" href="/djangoapp/logout" onClick={logout}>Logout</a>
   </div>
+} else {
+    // Logged out: the nav bar must offer login and signup (Module 1).
+    // Previously this branch rendered an empty panel, so there was no
+    // way to reach the login or register pages from the home page.
+    home_page_items = <div className="input_panel">
+    <a className="nav_item" href="/login">Login</a>
+    <a className="nav_item" href="/register" style={{marginLeft: "10px"}}>Register</a>
+  </div>
 }
     return (
         <div>

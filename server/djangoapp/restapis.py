@@ -1,6 +1,7 @@
 # Uncomment the imports below before you add the function code
 import requests
 import os
+from urllib.parse import quote
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,11 +24,12 @@ def get_request(endpoint, **kwargs):
     print("GET from {} ".format(request_url))
     try:
         # Call get method of requests library with URL and parameters
-        response = requests.get(request_url)
+        response = requests.get(request_url, timeout=10)
         # print(response.json())
         return response.json()
     except Exception as e:
         print("Network exception occurred", e)
+        return None
 
 # def analyze_review_sentiments(text):
 # request_url = sentiment_analyzer_url+"analyze/"+text
@@ -35,21 +37,25 @@ def get_request(endpoint, **kwargs):
 
 
 def analyze_review_sentiments(text):
-    request_url = sentiment_analyzer_url+"analyze/"+text
+    # Review text contains spaces and punctuation: it must be URL-encoded,
+    # otherwise most real reviews produce an invalid request URL.
+    request_url = sentiment_analyzer_url+"analyze/"+quote(str(text), safe="")
     try:
         # Call get method of requests library with URL and parameters
-        response = requests.get(request_url)
+        response = requests.get(request_url, timeout=10)
         return response.json()
     except Exception as err:
         print(f"Unexpected {err=}, {type(err)=}")
         print("Network exception occurred")
+        return {"sentiment": "neutral"}
 
 
 def post_review(data_dict):
     request_url = backend_url+"/insert_review"
     try:
-        response = requests.post(request_url, json=data_dict)
+        response = requests.post(request_url, json=data_dict, timeout=10)
         print(response.json())
         return response.json()
     except Exception as e:
         print("Network exception occurred", e)
+        return None

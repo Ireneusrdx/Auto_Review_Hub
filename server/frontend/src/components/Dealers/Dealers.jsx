@@ -53,6 +53,7 @@ return(
       <Header/>
 
      <table className='table'>
+      <thead>
       <tr>
       <th>ID</th>
       <th>Dealer Name</th>
@@ -74,6 +75,8 @@ return(
          ):<></>
       }
       </tr>
+      </thead>
+     <tbody>
      {dealersList.map(dealer => (
         <tr>
           <td>{dealer['id']}</td>
@@ -88,7 +91,8 @@ return(
           }
         </tr>
       ))}
-     </table>;
+     </tbody>
+     </table>
   </div>
 )
 }

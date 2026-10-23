@@ -1,0 +1,58 @@
+# Auto Review Hub — Django app on Kubernetes (Module 4).
+#
+# Per the IBM capstone flow, only the Django application is deployed to
+# Kubernetes. The Express + MongoDB service stays on Docker Compose
+# (server/database/docker-compose.yml) and the sentiment analyzer runs
+# as a separate service (IBM Code Engine). Point Django at them with the
+# backend_url / sentiment_analyzer_url values in server/djangoapp/.env,
+# or the BACKEND_URL / SENTIMENT_ANALYZER_URL environment variables of
+# the deployment platform.
+#
+# Usage:
+#   docker build -t ghcr.io/ireneusrdx/auto-review-hub-django:latest server/
+#   docker push ghcr.io/ireneusrdx/auto-review-hub-django:latest
+#   kubectl apply -f server/deployment.yaml -f server/service.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dealership
+  labels:
+    app: dealership
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dealership
+  template:
+    metadata:
+      labels:
+        app: dealership
+    spec:
+      containers:
+        - name: dealership
+          image: ghcr.io/ireneusrdx/auto-review-hub-django:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DJANGO_DEBUG
+              value: "False"
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: auto-review-hub-secrets
+                  key: django-secret-key
+            - name: DJANGO_ALLOWED_HOSTS
+              value: "*"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 20

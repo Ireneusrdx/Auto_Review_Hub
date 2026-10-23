@@ -1,16 +1,15 @@
-FROM node:18.12.1-bullseye-slim
+FROM node:18-slim
 
-RUN npm install -g npm@9.1.3
+WORKDIR /app
 
-ADD package.json .
-ADD app.js .
-ADD review.js .
-ADD dealership.js .
-ADD data/dealerships.json .
-ADD data/reviews.json .
-COPY . .
+COPY package.json ./
 RUN npm install
+
+# App code and seed data (app.js loads seeds from data/, with the service
+# root as a fallback location).
+COPY app.js review.js dealership.js inventory.js ./
+COPY data/ ./data/
 
 EXPOSE 3030
 
-CMD [ "node", "app.js" ]
+CMD ["node", "app.js"]

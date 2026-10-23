@@ -1,33 +1,39 @@
-# Use Python 3.9 slim image
-FROM python:3.9-slim
+# Auto Review Hub — Django application image (multi-stage).
+#
+# Stage 1 builds the React frontend. This matters for hosted deploys
+# (Render etc.): the frontend build output is gitignored, so an image
+# built straight from the repo would have no app for Django to serve.
+# Stage 2 is the Django/gunicorn runtime, with the built frontend copied
+# into frontend/build, where djangoproj settings and URLs expect it.
+# Static files are collected by entrypoint.sh at container start.
 
-# Set environment variables
+FROM node:18-slim AS frontend-build
+WORKDIR /build
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm install
+COPY frontend/ ./
+RUN CI=false npm run build
+
+FROM python:3.12-slim
+
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Set work directory
 WORKDIR /app
 
-# Install system dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        postgresql-client \
-        build-essential \
-        libpq-dev \
+    && apt-get install -y --no-install-recommends build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project
 COPY . /app/
+COPY --from=frontend-build /build/build /app/frontend/build
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
+RUN chmod +x /app/entrypoint.sh
 
-# Expose port
 EXPOSE 8000
 
-# Run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "djangoproj.wsgi:application"]
+ENTRYPOINT ["/app/entrypoint.sh"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "djangoproj.wsgi:application"]

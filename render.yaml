@@ -1,0 +1,68 @@
+# Auto Review Hub — Render Blueprint (free tier, $0/month)
+#
+# Deploys the full stack as three Docker services:
+#   1. auto-review-hub            Django app (serves the built React frontend)
+#   2. auto-review-hub-api        Express + Mongoose service (dealers/reviews)
+#   3. auto-review-hub-sentiment  Flask + NLTK VADER sentiment analyzer
+#
+# MongoDB itself is NOT on Render (no free MongoDB there): create a free
+# M0 cluster on MongoDB Atlas, allow network access from anywhere
+# (0.0.0.0/0) for the demo, and paste its connection string as MONGO_URL
+# when Render prompts for the unsynced variables below.
+#
+# Free-tier notes:
+# - Services sleep after ~15 minutes idle and take ~30-60s to wake.
+# - Django uses SQLite on the service filesystem, which is ephemeral:
+#   registered users are reset on redeploy/restart. Car data re-seeds
+#   itself automatically. Acceptable for a course demo; a paid disk or
+#   external database removes this limit.
+# - If any service name below is already taken on Render, your URLs will
+#   differ: update backend_url / sentiment_analyzer_url on the
+#   auto-review-hub service to the actual https URLs and redeploy it.
+
+services:
+  - type: web
+    name: auto-review-hub
+    runtime: docker
+    plan: free
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: ./server
+    healthCheckPath: /
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: DJANGO_CSRF_TRUSTED_ORIGINS
+        value: "https://*.onrender.com"
+      - key: backend_url
+        value: "https://auto-review-hub-api.onrender.com"
+      - key: sentiment_analyzer_url
+        value: "https://auto-review-hub-sentiment.onrender.com/"
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
+
+  - type: web
+    name: auto-review-hub-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./server/database/Dockerfile
+    dockerContext: ./server/database
+    healthCheckPath: /
+    envVars:
+      - key: MONGO_URL
+        sync: false # paste your MongoDB Atlas connection string
+
+  - type: web
+    name: auto-review-hub-sentiment
+    runtime: docker
+    plan: free
+    dockerfilePath: ./server/djangoapp/microservices/Dockerfile
+    dockerContext: ./server/djangoapp/microservices
+    healthCheckPath: /

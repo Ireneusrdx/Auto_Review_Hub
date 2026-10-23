@@ -40,6 +40,10 @@ const Register = () => {
     const json = await res.json();
     if (json.status) {
         sessionStorage.setItem('username', json.userName);
+        // PostReview builds the reviewer name from these two keys; they
+        // were never stored, so reviews always fell back to the username.
+        sessionStorage.setItem('firstname', firstName);
+        sessionStorage.setItem('lastname', lastName);
         window.location.href = window.location.origin;
     }
     else if (json.error === "Already Registered") {

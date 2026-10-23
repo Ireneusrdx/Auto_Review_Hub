@@ -20,26 +20,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ccow$tz_=9%dxu4(0%^(z%nx32#s@(zt9$ih@)5l54yny)wm-0'
+# Set DJANGO_SECRET_KEY in the environment for any real deployment.
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-local-dev-only-change-me')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
+# Hostnames only here (no scheme, no port). Extra hosts can be supplied
+# as a comma-separated DJANGO_ALLOWED_HOSTS environment variable.
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'https://irodrix2212-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai',
-    # Add your GitHub Pages domain when deploying
-    'ireneusrdx.github.io',
-    # Add your custom domain if you have one
-    # 'your-domain.com',
-]
+] + [h.strip() for h in os.environ.get(
+    'DJANGO_ALLOWED_HOSTS', '').split(',') if h.strip()]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://irodrix2212-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai',
-    'https://ireneusrdx.github.io',
-    # Add your custom domain if you have one
-    # 'https://your-domain.com',
+    o.strip() for o in os.environ.get(
+        'DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',') if o.strip()
 ]
 
 REST_FRAMEWORK = {
@@ -59,6 +58,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # WhiteNoise serves collected static files (incl. the React build)
+    # when the app runs under gunicorn, which does not serve static files.
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',  # Ensure CSRF middleware is enabled
