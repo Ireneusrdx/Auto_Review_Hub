@@ -1,0 +1,77 @@
+{
+ "NISSAN|Pathfinder": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/2023_Nissan_Pathfinder_Platinum_4WD_in_Baja_Storm_Metallic%2C_front_left.jpg/960px-2023_Nissan_Pathfinder_Platinum_4WD_in_Baja_Storm_Metallic%2C_front_left.jpg",
+  "make_display": "Nissan",
+  "source": "https://en.wikipedia.org/wiki/Nissan_Pathfinder"
+ },
+ "NISSAN|Qashqai": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/2024_Nissan_Qashqai_e-Power_IMG_2187.jpg/960px-2024_Nissan_Qashqai_e-Power_IMG_2187.jpg",
+  "make_display": "Nissan",
+  "source": "https://en.wikipedia.org/wiki/Nissan_Qashqai"
+ },
+ "NISSAN|XTRAIL": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Nissan_X-Trail_%28T33%29_1X7A7179.jpg/960px-Nissan_X-Trail_%28T33%29_1X7A7179.jpg",
+  "make_display": "Nissan",
+  "source": "https://en.wikipedia.org/wiki/Nissan_X-Trail"
+ },
+ "Mercedes|A-Class": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/2018_Mercedes-Benz_A200_AMG_Line_Premium_Automatic_1.3_Front.jpg/960px-2018_Mercedes-Benz_A200_AMG_Line_Premium_Automatic_1.3_Front.jpg",
+  "make_display": "Mercedes-Benz",
+  "source": "https://en.wikipedia.org/wiki/Mercedes-Benz_A-Class"
+ },
+ "Mercedes|C-Class": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Mercedes-Benz_W206_IMG_6380.jpg/960px-Mercedes-Benz_W206_IMG_6380.jpg",
+  "make_display": "Mercedes-Benz",
+  "source": "https://en.wikipedia.org/wiki/Mercedes-Benz_C-Class"
+ },
+ "Mercedes|E-Class": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Mercedes-Benz_W214_1X7A1841.jpg/960px-Mercedes-Benz_W214_1X7A1841.jpg",
+  "make_display": "Mercedes-Benz",
+  "source": "https://en.wikipedia.org/wiki/Mercedes-Benz_E-Class"
+ },
+ "Audi|A4": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/35/Audi_A4_B9_sedans_%28FL%29_1X7A2441.jpg/960px-Audi_A4_B9_sedans_%28FL%29_1X7A2441.jpg",
+  "make_display": "Audi",
+  "source": "https://en.wikipedia.org/wiki/Audi_A4"
+ },
+ "Audi|A5": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Audi_A5_B10_DSC_7314.jpg/960px-Audi_A5_B10_DSC_7314.jpg",
+  "make_display": "Audi",
+  "source": "https://en.wikipedia.org/wiki/Audi_A5"
+ },
+ "Audi|A6": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Audi_A6_C9_IAA_2025_DSC_1920.jpg/960px-Audi_A6_C9_IAA_2025_DSC_1920.jpg",
+  "make_display": "Audi",
+  "source": "https://en.wikipedia.org/wiki/Audi_A6"
+ },
+ "Kia|Sorrento": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/2024_Kia_Sorento_X-Line_SX_Prestige_%28facelift%29%2C_front_12.20.24.jpg/960px-2024_Kia_Sorento_X-Line_SX_Prestige_%28facelift%29%2C_front_12.20.24.jpg",
+  "make_display": "Kia",
+  "source": "https://en.wikipedia.org/wiki/Kia_Sorento"
+ },
+ "Kia|Carnival": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/2025_Kia_Carnival_Hybrid_EX%2C_front_right%2C_10-12-2025.jpg/960px-2025_Kia_Carnival_Hybrid_EX%2C_front_right%2C_10-12-2025.jpg",
+  "make_display": "Kia",
+  "source": "https://en.wikipedia.org/wiki/Kia_Carnival"
+ },
+ "Kia|Cerato": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/2019_Kia_Cerato_S_hatchback_front.jpg/960px-2019_Kia_Cerato_S_hatchback_front.jpg",
+  "make_display": "Kia",
+  "source": "https://en.wikipedia.org/wiki/Kia_Cerato"
+ },
+ "Toyota|Corolla": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Toyota_Corolla_Hybrid_%28E210%29_IMG_4338.jpg/960px-Toyota_Corolla_Hybrid_%28E210%29_IMG_4338.jpg",
+  "make_display": "Toyota",
+  "source": "https://en.wikipedia.org/wiki/Toyota_Corolla"
+ },
+ "Toyota|Camry": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/2018_Toyota_Camry_%28ASV70R%29_Ascent_sedan_%282018-08-27%29_01.jpg/960px-2018_Toyota_Camry_%28ASV70R%29_Ascent_sedan_%282018-08-27%29_01.jpg",
+  "make_display": "Toyota",
+  "source": "https://en.wikipedia.org/wiki/Toyota_Camry"
+ },
+ "Toyota|Kluger": {
+  "img": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/Toyota_Highlander_Hybrid_%28XU70%29_1X7A6356.jpg/960px-Toyota_Highlander_Hybrid_%28XU70%29_1X7A6356.jpg",
+  "make_display": "Toyota",
+  "source": "https://en.wikipedia.org/wiki/Toyota_Highlander"
+ }
+}

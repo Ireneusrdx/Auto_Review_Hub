@@ -1,0 +1,132 @@
+.cars_page {
+  max-width: 1180px;
+}
+
+.cars_controls {
+  margin: 18px 0 6px;
+}
+
+.cars_controls input {
+  width: 100%;
+  max-width: 448px;
+  border: 1px solid #c3d0db;
+  border-radius: 8px;
+  padding: 11px 12px;
+  font: inherit;
+}
+
+.cars_controls input:focus {
+  outline: 2px solid #0e7c7b;
+  outline-offset: 1px;
+  border-color: #0e7c7b;
+}
+
+.car_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px;
+  margin: 14px 0 30px;
+}
+
+.car_card {
+  background: #fff;
+  border: 1px solid #dfe6ec;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.car_card_media {
+  aspect-ratio: 16 / 10;
+  background: #e8eef3;
+  overflow: hidden;
+}
+
+.car_card_media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.car_card_placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #dce7ef, #f2f6f9);
+}
+
+.car_card_placeholder span {
+  font-size: 54px;
+  font-weight: 800;
+  color: #8fa6b8;
+}
+
+.car_card_body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.car_card_make {
+  color: #0e7c7b;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.car_card_body h4 {
+  color: #102f4b;
+  font-size: 20px;
+  margin: 0;
+}
+
+.car_card_stats {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #51606e;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+.car_pct {
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.car_pct.good { background: #e2f4e8; color: #177245; }
+.car_pct.mid { background: #fdf0d5; color: #8a6414; }
+.car_pct.low { background: #fbe7e2; color: #a93226; }
+
+.car_no_reviews {
+  color: #8496a5;
+}
+
+.car_card_links {
+  display: flex;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.car_card_links a {
+  color: #123c5e;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.cars_attribution {
+  color: #8496a5;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 14px;
+  max-width: 640px;
+}
