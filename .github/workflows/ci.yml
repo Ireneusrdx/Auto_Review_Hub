@@ -1,0 +1,57 @@
+name: CI - Build and Test
+
+# Build verification only. This project is NOT deployed to GitHub Pages:
+# the React build is served by Django (see server/djangoproj/urls.py),
+# and Pages cannot run Django, Express or MongoDB. The previous Pages
+# workflows were removed for that reason.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: server/frontend/package.json
+      - name: Install and build React app
+        run: |
+          cd server/frontend
+          npm install
+          CI=false npm run build
+
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies and run Django checks
+        run: |
+          cd server
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python manage.py check
+          python manage.py migrate --run-syncdb
+          python manage.py test
+
+  build-database-service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install and syntax-check Express service
+        run: |
+          cd server/database
+          npm install
+          node --check app.js
